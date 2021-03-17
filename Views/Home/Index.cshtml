@@ -1,0 +1,142 @@
+@using Bewerber.Models
+
+<h2 class="content-block">Startseite</h2>
+
+
+
+
+@(Html.DevExtreme().DataGrid<Bewerber.Models.BewerberModel>()
+    .DataSource(ds => ds.Mvc()
+        .Controller("BewerberModelsneu")
+        .LoadAction("Get")
+        .InsertAction("Post")
+        .UpdateAction("Put")
+        .DeleteAction("Delete")
+        .Key("Id")
+    )
+.SearchPanel(searchPanel => searchPanel
+        .Visible(true)
+        .Width(240)
+        .Placeholder("Search...")
+    )
+.AllowColumnResizing(true)
+.ColumnAutoWidth(true)
+.ShowBorders(true)
+.FilterPanel(f => f.Visible(true))
+.FilterRow(filterRow => filterRow
+        .Visible(true)        
+        .ApplyFilter(GridApplyFilterMode.Auto)
+        
+    )
+.Export(e => e.Enabled(true).AllowExportSelectedData(true))
+.Editing(editing =>
+{
+    editing.Mode(GridEditMode.Popup);
+    editing.AllowAdding(false);
+    editing.AllowDeleting(true);
+    editing.AllowUpdating(true)
+                .Popup(p => p
+                    .Title("Information")
+                    .ShowTitle(true)
+                    .Width(1400)
+                    .Height(1000)
+                    .Position(pos => pos
+                        .My(HorizontalAlignment.Center, VerticalAlignment.Top)
+                        .At(HorizontalAlignment.Center, VerticalAlignment.Top)
+                        .Of(new JS("window"))
+                    )
+                )
+                .Form(f => f.Items(items =>
+                {
+                    items.AddGroup()
+                        .ColCount(2)
+                        .ColSpan(2)
+                        .Items(groupItems =>
+                        {
+                            groupItems.AddSimpleFor(m => m.Vorname);
+                            groupItems.AddSimpleFor(m => m.Nachname);
+                            groupItems.AddSimpleFor(m => m.PLZ);
+                            groupItems.AddSimpleFor(m => m.Berufsgruppe);
+                            groupItems.AddSimpleFor(m => m.Berufdetail);
+                            groupItems.AddSimpleFor(m => m.Netzwerke);
+
+                            groupItems.AddSimpleFor(m => m.Netzwerkdetail)
+                                .ColSpan(2)
+                                .Editor(editor => editor.TextArea().Height(100));
+                        });
+
+                    items.AddGroup()
+                        .Caption("Vorstellungsgespräch?")
+                        .ColCount(2)
+                        .ColSpan(2)
+                        .Items(groupItems =>
+                        {
+                            groupItems.AddSimpleFor(m => m.Vorstellung);
+                            groupItems.AddSimpleFor(m => m.Erfolgt);
+                            groupItems.AddSimpleFor(m => m.Eingestellt);
+                        });
+                }));
+}
+        )
+        .ShowColumnLines(true)
+    .ShowRowLines(true)
+    .RowAlternationEnabled(true)
+    .ShowBorders(true)
+    .RemoteOperations(true)
+    .Columns(columns => {
+
+        columns.AddFor(m => m.Id);
+
+        columns.AddFor(m => m.Erstellt);
+
+        columns.AddFor(m => m.Datum);
+
+        columns.AddFor(m => m.NL);
+
+        columns.AddFor(m => m.Vorname);
+
+        columns.AddFor(m => m.Nachname);
+
+        columns.AddFor(m => m.PLZ);
+
+        columns.AddFor(m => m.Berufsgruppe);
+
+        columns.AddFor(m => m.Berufdetail)
+        .Visible(false);
+
+        columns.AddFor(m => m.Netzwerke);
+
+        columns.AddFor(m => m.Netzwerkdetail)
+        .Visible(false);
+
+        columns.AddFor(m => m.Status);
+
+        columns.AddFor(m => m.Vorstellung);
+
+
+        columns.AddFor(m => m.Erfolgt)
+
+        ;
+
+        columns.AddFor(m => m.Eingestellt)
+
+        ;
+
+        columns.AddFor(m => m.RefMail);
+
+        columns.AddFor(m => m.Bearbeiter)
+       ;
+    })
+)
+<script>
+    function exportToPDF() {
+        var doc = new jsPDF();
+        var dataGrid = $("#gridContainer").dxDataGrid("instance");
+        DevExpress.pdfExporter.exportDataGrid({
+            jsPDFDocument: doc,
+            component: dataGrid
+        }).then(function () {
+            doc.save("Customers.pdf");
+        });
+    }
+</script>

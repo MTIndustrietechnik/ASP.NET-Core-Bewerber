@@ -1,0 +1,77 @@
+<h2 class="content-block">Stellenportale</h2>
+
+@(Html.DevExtreme().DataGrid<Bewerber.Models.Stellenangebote>()
+    .DataSource(ds => ds.Mvc()
+        .Controller("Stellenangebotes")
+        .LoadAction("Get")
+        .InsertAction("Post")
+        .UpdateAction("Put")
+        .DeleteAction("Delete")
+        .Key("Id")
+    )
+    .AllowColumnResizing(true)
+    .ColumnAutoWidth(true)
+    .ShowBorders(true)
+    .FilterPanel(f => f.Visible(true))
+    .FilterRow(filterRow => filterRow
+        .Visible(true)
+        .ApplyFilter(GridApplyFilterMode.Auto)
+        .ShowOperationChooser(false)
+        
+
+        
+
+
+    )
+        .ShowColumnLines(true)
+    .ShowRowLines(true)
+    .RowAlternationEnabled(true)
+    .ShowBorders(true)
+    .RemoteOperations(true)
+    .Columns(columns => {
+
+
+        columns.AddFor(m => m.NL);
+
+        columns.AddFor(m => m.BEZ);
+
+        columns.AddFor(m => m.Detail);
+
+        columns.AddFor(m => m.VDatum);
+
+        columns.AddFor(m => m.BDatum);
+
+        columns.AddFor(m => m.Preis);
+
+        columns.AddFor(m => m.Referenz);
+
+        columns.AddFor(m => m.Gesamt);
+
+        columns.AddFor(m => m.Eingestellt);
+
+        columns.AddFor(m => m.Unbearbeitet);
+    })
+
+        .Summary(s => s.TotalItems(items => {
+            items.AddFor(m => m.Gesamt)
+                .SummaryType(SummaryType.Sum);
+
+            items.AddFor(m => m.Eingestellt)
+                .SummaryType(SummaryType.Sum);
+
+
+            items.AddFor(m => m.Unbearbeitet)
+                .SummaryType(SummaryType.Sum)
+                .ValueFormat(Format.Currency);
+        })
+    )
+        .Editing(editing =>
+        {
+            editing.Mode(GridEditMode.Batch);
+            editing.AllowUpdating(true);
+            editing.SelectTextOnEditStart(true);
+            editing.StartEditAction(GridStartEditAction.Click);
+            editing.AllowDeleting(true);
+            editing.AllowAdding(true);
+        })
+)
