@@ -21,5 +21,10 @@ namespace Bewerber.Controllers
         public IActionResult Error() {
             return View();
         }
+
+        public IActionResult neu()
+        {
+            return View();
+        }
     }
 }

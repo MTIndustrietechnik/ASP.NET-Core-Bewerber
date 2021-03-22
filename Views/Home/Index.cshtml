@@ -1,33 +1,40 @@
 @using Bewerber.Models
 
 <h2 class="content-block">Startseite</h2>
+test
 
 
 
 
-@(Html.DevExtreme().DataGrid<Bewerber.Models.BewerberModel>()
+@(
+
+Html.DevExtreme().DataGrid<Bewerber.Models.BewerberModel>
+    ()
     .DataSource(ds => ds.Mvc()
-        .Controller("BewerberModelsneu")
-        .LoadAction("Get")
-        .InsertAction("Post")
-        .UpdateAction("Put")
-        .DeleteAction("Delete")
-        .Key("Id")
+    .Controller("BewerberModelsneu")
+    .LoadAction("Get")
+    .InsertAction("Post")
+    .UpdateAction("Put")
+    .DeleteAction("Delete")
+    .Key("Id")
     )
+
+
 .SearchPanel(searchPanel => searchPanel
-        .Visible(true)
-        .Width(240)
-        .Placeholder("Search...")
-    )
+    .Visible(true)
+    .Width(240)
+    .Placeholder("Search...")
+)
 .AllowColumnResizing(true)
 .ColumnAutoWidth(true)
 .ShowBorders(true)
 .FilterPanel(f => f.Visible(true))
 .FilterRow(filterRow => filterRow
-        .Visible(true)        
-        .ApplyFilter(GridApplyFilterMode.Auto)
-        
-    )
+    .Visible(true)
+    .ApplyFilter(GridApplyFilterMode.Auto)
+
+)
+
 .Export(e => e.Enabled(true).AllowExportSelectedData(true))
 .Editing(editing =>
 {
@@ -77,66 +84,67 @@
                         });
                 }));
 }
-        )
-        .ShowColumnLines(true)
-    .ShowRowLines(true)
-    .RowAlternationEnabled(true)
-    .ShowBorders(true)
-    .RemoteOperations(true)
-    .Columns(columns => {
+    )
+    .ShowColumnLines(true)
+.ShowRowLines(true)
+.RowAlternationEnabled(true)
+.ShowBorders(true)
+.RemoteOperations(true)
+.Columns(columns => {
 
-        columns.AddFor(m => m.Id);
+    columns.AddFor(m => m.Id);
 
-        columns.AddFor(m => m.Erstellt);
+    columns.AddFor(m => m.Erstellt);
 
-        columns.AddFor(m => m.Datum);
+    columns.AddFor(m => m.Datum);
 
-        columns.AddFor(m => m.NL);
+    columns.AddFor(m => m.NL);
 
-        columns.AddFor(m => m.Vorname);
+    columns.AddFor(m => m.Vorname);
 
-        columns.AddFor(m => m.Nachname);
+    columns.AddFor(m => m.Nachname);
 
-        columns.AddFor(m => m.PLZ);
+    columns.AddFor(m => m.PLZ);
 
-        columns.AddFor(m => m.Berufsgruppe);
+    columns.AddFor(m => m.Berufsgruppe);
 
-        columns.AddFor(m => m.Berufdetail)
-        .Visible(false);
+    columns.AddFor(m => m.Berufdetail)
+    .Visible(false);
 
-        columns.AddFor(m => m.Netzwerke);
+    columns.AddFor(m => m.Netzwerke);
 
-        columns.AddFor(m => m.Netzwerkdetail)
-        .Visible(false);
+    columns.AddFor(m => m.Netzwerkdetail)
+    .Visible(false);
 
-        columns.AddFor(m => m.Status);
+    columns.AddFor(m => m.Status);
 
-        columns.AddFor(m => m.Vorstellung);
+    columns.AddFor(m => m.Vorstellung);
 
 
-        columns.AddFor(m => m.Erfolgt)
+    columns.AddFor(m => m.Erfolgt)
 
-        ;
+    ;
 
-        columns.AddFor(m => m.Eingestellt)
+    columns.AddFor(m => m.Eingestellt)
 
-        ;
+    ;
 
-        columns.AddFor(m => m.RefMail);
+    columns.AddFor(m => m.RefMail);
 
-        columns.AddFor(m => m.Bearbeiter)
-       ;
-    })
+    columns.AddFor(m => m.Bearbeiter)
+   ;
+})
 )
-<script>
-    function exportToPDF() {
-        var doc = new jsPDF();
-        var dataGrid = $("#gridContainer").dxDataGrid("instance");
-        DevExpress.pdfExporter.exportDataGrid({
-            jsPDFDocument: doc,
-            component: dataGrid
-        }).then(function () {
-            doc.save("Customers.pdf");
-        });
-    }
-</script>
+    <script>
+        function exportToPDF() {
+            var doc = new jsPDF();
+            var dataGrid = $("#gridContainer").dxDataGrid("instance");
+            DevExpress.pdfExporter.exportDataGrid({
+                jsPDFDocument: doc,
+                component: dataGrid
+            }).then(function () {
+                doc.save("Customers.pdf");
+            });
+        }
+    </script>
+

@@ -1,0 +1,20 @@
+﻿
+<h2 class="content-block">Startseite</h2>
+test
+
+
+@(Html.DevExtreme().Toolbar()
+    .Items(items =>
+    {
+        items.Add()
+            .Widget(w => w
+            .Button()
+            .Type(ButtonType.Back)
+            .OnClick("backButton_click")
+    );
+
+    }
+
+
+
+           ))
