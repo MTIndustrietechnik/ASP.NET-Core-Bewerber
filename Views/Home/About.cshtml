@@ -1,6 +1,8 @@
 <h2 class="content-block">Stellenportale</h2>
 
+)
 @(Html.DevExtreme().DataGrid<Bewerber.Models.Stellenangebote>()
+
     .DataSource(ds => ds.Mvc()
         .Controller("Stellenangebotes")
         .LoadAction("Get")
@@ -17,9 +19,8 @@
         .Visible(true)
         .ApplyFilter(GridApplyFilterMode.Auto)
         .ShowOperationChooser(false)
-        
 
-        
+
 
 
     )
@@ -31,7 +32,8 @@
     .Columns(columns => {
 
 
-        columns.AddFor(m => m.NL);
+        columns.AddFor(m => m.NL)
+       ;
 
         columns.AddFor(m => m.BEZ);
 
@@ -74,4 +76,5 @@
             editing.AllowDeleting(true);
             editing.AllowAdding(true);
         })
+        
 )

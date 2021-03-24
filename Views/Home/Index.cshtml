@@ -1,15 +1,69 @@
 @using Bewerber.Models
+<script>
+    DevExpress.localization.locale("de");
+</script>
 
 <h2 class="content-block">Startseite</h2>
-test
+    test
+<style>
+
+    .dx-texteditor.dx-editor-underlined::after {
+        border: 1px solid rgba(77, 43, 43, 0.42)
+    }
+
+    .dx-texteditor-container {
+        border: 1px solid rgba(77, 43, 43, 0.42)
+    }
+
+    .dx-texteditor.dx-editor-underlined .dx-texteditor-input {
+        padding: 2px 4px 2px;
+    }
+
+    .dx-field-item-label-location-top {
+        display: block;
+        padding: 1px 1px 1px;
+    }
+
+    .dx-form-group-caption {
+        font-size: 18px;
+    }
+
+    .table1{
+
+    margin-left: 3%;
+    border: 2px solid black;
+
+    }
+    
+    .test{
+
+        border: 2px solid black;
+        width: 10%;
+
+    }
+
+    .test1{
+
+        width: 5%;
+
+    }
+</style>
 
 
-
-
+@(Html.DevExtreme().Button()
+                        .Text(ButtonStylingMode.Contained.ToString())
+                        .Type(ButtonType.Normal)
+                        .StylingMode(ButtonStylingMode.Contained)
+                        .Width(120)
+                        .OnClick("popupn")
+                    )
 @(
+
 
 Html.DevExtreme().DataGrid<Bewerber.Models.BewerberModel>
     ()
+    .Selection(s => s.Mode(SelectionMode.Single))
+    .HoverStateEnabled(true)
     .DataSource(ds => ds.Mvc()
     .Controller("BewerberModelsneu")
     .LoadAction("Get")
@@ -52,45 +106,145 @@ Html.DevExtreme().DataGrid<Bewerber.Models.BewerberModel>
                         .At(HorizontalAlignment.Center, VerticalAlignment.Top)
                         .Of(new JS("window"))
                     )
+
                 )
-                .Form(f => f.Items(items =>
+
+            .Form(f => f
+
+
+
+                .Items(items =>
                 {
+
+
                     items.AddGroup()
-                        .ColCount(2)
-                        .ColSpan(2)
+
+                        .ColCount(3)
+                        .ColSpan(4)
+                        .Caption("Bewerber Stammblatt")
                         .Items(groupItems =>
                         {
+
                             groupItems.AddSimpleFor(m => m.Vorname);
                             groupItems.AddSimpleFor(m => m.Nachname);
                             groupItems.AddSimpleFor(m => m.PLZ);
                             groupItems.AddSimpleFor(m => m.Berufsgruppe);
                             groupItems.AddSimpleFor(m => m.Berufdetail);
                             groupItems.AddSimpleFor(m => m.Netzwerke);
-
-                            groupItems.AddSimpleFor(m => m.Netzwerkdetail)
-                                .ColSpan(2)
-                                .Editor(editor => editor.TextArea().Height(100));
                         });
 
                     items.AddGroup()
-                        .Caption("Vorstellungsgespräch?")
+                        .Caption("Beruf")
                         .ColCount(2)
                         .ColSpan(2)
                         .Items(groupItems =>
                         {
-                            groupItems.AddSimpleFor(m => m.Vorstellung);
+                            groupItems.AddSimpleFor(m => m.Vorstellung)
+                            ;
                             groupItems.AddSimpleFor(m => m.Erfolgt);
-                            groupItems.AddSimpleFor(m => m.Eingestellt);
+
                         });
-                }));
+
+                    items.AddGroup()
+                    .Caption("Netzwerk")
+                    .ColCount(3)
+                    .ColSpan(3)
+                    .Items(groupItems =>
+                    {
+                        groupItems.AddSimpleFor(m => m.Vorstellung);
+                        groupItems.AddSimpleFor(m => m.Erfolgt);
+
+                    });
+
+                    items.AddGroup()
+                    .Caption("Aktion")
+                    .ColCount(3)
+                    .ColSpan(3)
+                    .Items(groupItems =>
+                    {
+                        groupItems.AddSimpleFor(m => m.Vorstellung);
+                        groupItems.AddSimpleFor(m => m.Erfolgt);
+                        groupItems.AddSimpleFor(m => m.Eingestellt);
+                    });
+
+                    items.AddGroup()
+                    .Caption("Anmerkungen")
+                    .ColCount(1)
+                    .ColSpan(1)
+                    .Items(groupItems =>
+                    {
+                        groupItems.AddSimpleFor(m => m.Vorstellung)
+                                                    .ColSpan(2)
+                            .Editor(editor => editor.TextArea().Height(100));
+
+                    });
+
+
+                    items.AddGroup()
+                    .Caption("Vorstellungsgespräch")
+                    .ColCount(4)
+                    .ColSpan(4)
+                    .Items(groupItems =>
+                    {
+                        groupItems.AddSimpleFor(m => m.Vorstellung);
+                        groupItems.AddSimpleFor(m => m.Erfolgt);
+                        groupItems.AddSimpleFor(m => m.Eingestellt);
+                        groupItems.AddSimpleFor(m => m.Eingestellt);
+                    });
+
+
+                    items.AddGroup()
+                    .Caption("Einstellung")
+                    .ColCount(4)
+                    .ColSpan(4)
+                    .Items(groupItems =>
+                    {
+                        groupItems.AddSimpleFor(m => m.Vorstellung)
+                        .DataField("Vorstellung");
+                        groupItems.AddSimpleFor(m => m.Erfolgt);
+                        groupItems.AddSimpleFor(m => m.Eingestellt);
+                        groupItems.AddSimpleFor(m => m.Eingestellt);
+                    });
+
+
+                    items.AddGroup()
+                    .ColCount(3)
+                    .ColSpan(3)
+                    .Items(groupItems =>
+                    {
+                        groupItems.AddSimpleFor(m => m.Vorstellung);
+                        groupItems.AddSimpleFor(m => m.Erfolgt);
+                        groupItems.AddSimpleFor(m => m.Eingestellt);
+
+                    });
+
+                    items.AddGroup()
+                    .Caption("Anlagen")
+                    .ColCount(3)
+                    .ColSpan(3)
+
+                    .Items(groupItems =>
+                    {
+                        groupItems.AddSimpleFor(m => m.Vorstellung);
+
+
+                    });
+
+
+
+                }))
+                ;
+
 }
+
     )
-    .ShowColumnLines(true)
+.ShowColumnLines(true)
 .ShowRowLines(true)
 .RowAlternationEnabled(true)
 .ShowBorders(true)
 .RemoteOperations(true)
-.Columns(columns => {
+.Columns(columns =>
+{
 
     columns.AddFor(m => m.Id);
 
@@ -106,7 +260,8 @@ Html.DevExtreme().DataGrid<Bewerber.Models.BewerberModel>
 
     columns.AddFor(m => m.PLZ);
 
-    columns.AddFor(m => m.Berufsgruppe);
+    columns.AddFor(m => m.Berufsgruppe)
+    ;
 
     columns.AddFor(m => m.Berufdetail)
     .Visible(false);
@@ -118,7 +273,8 @@ Html.DevExtreme().DataGrid<Bewerber.Models.BewerberModel>
 
     columns.AddFor(m => m.Status);
 
-    columns.AddFor(m => m.Vorstellung);
+    columns.AddFor(m => m.Vorstellung)
+    .DataType(GridColumnDataType.Date);
 
 
     columns.AddFor(m => m.Erfolgt)
@@ -134,17 +290,79 @@ Html.DevExtreme().DataGrid<Bewerber.Models.BewerberModel>
     columns.AddFor(m => m.Bearbeiter)
    ;
 })
-)
-    <script>
-        function exportToPDF() {
-            var doc = new jsPDF();
-            var dataGrid = $("#gridContainer").dxDataGrid("instance");
-            DevExpress.pdfExporter.exportDataGrid({
-                jsPDFDocument: doc,
-                component: dataGrid
-            }).then(function () {
-                doc.save("Customers.pdf");
-            });
-        }
-    </script>
+.OnSelectionChanged("selection_changed")
 
+)
+
+
+
+
+<div id="employeeInfo">
+
+    <table class="table1" style="width:50%;">
+        <tr>
+            <td class="test1">Vorname:</td>
+            <td class="test"><p class="Vorname"></p></td>
+            <td class="test1">Berufsgruppe:</td>
+            <td class="test"><p class="Berufsgruppe"></p></td>
+        </tr>
+    <tr>
+        <td class="test1">Nachname:</td>
+        <td class="test"><p class="Nachname"></p></td>
+        <td class="test1">Berufdetail:</td>
+        <td class="test"><p class="Berufdetail"></p></td>
+    </tr>
+    <tr>
+        <td class="test1">Niederlassung:</td>
+        <td class="test"><p class="NL"></p></td>
+        <td class="test">&nbsp;</td>
+    </tr>
+
+    </table>
+
+
+
+</div>
+
+<script>
+    function selection_changed(selectedItems) {
+        var data = selectedItems.selectedRowsData[0];
+        if (data) {
+            $(".Vorname").text(data.Vorname);
+            $(".Berufsgruppe").text(data.Berufsgruppe);
+            $(".Berufdetail").text(data.Berufdetail);
+            $(".Netzwerke").text(data.Netzwerke);
+            $(".Netzwerkdetail").text(data.Netzwerkdetail);
+            $(".Nachname").text(data.Nachname);
+            $(".NL").text(data.NL);
+
+
+
+        }
+    }
+</script>
+
+<script>
+    function exportToPDF() {
+        var doc = new jsPDF();
+        var dataGrid = $("#gridContainer").dxDataGrid("instance");
+        DevExpress.pdfExporter.exportDataGrid({
+            jsPDFDocument: doc,
+            component: dataGrid
+        }).then(function () {
+            doc.save("Customers.pdf");
+        });
+    }
+</script>
+
+<script>
+    function neu(t) {
+        return e._executeClickAction(t)
+    }
+
+</script>
+<script>
+    function popupn() {
+        window.open("c:/apache/htdocs/temp/test.html");
+    }
+</script>
