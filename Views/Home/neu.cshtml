@@ -1,4 +1,6 @@
-﻿
+﻿@using GleamTech.AspNet.Core
+@using GleamTech.FileUltimate.AspNet.UI
+
 <h2 class="content-block">Startseite</h2>
 test
 
@@ -79,3 +81,34 @@ test
             editing.AllowAdding(true);
         })
 )
+@{
+    var fileManager = new FileManager
+    {
+        Width = 800,
+        Height = 600,
+        Resizable = true
+    };
+
+    var rootFolder = new FileManagerRootFolder
+    {
+        Name = "A Root Folder",
+        Location = @"P:\_EDV-Ablage"
+    };
+
+    rootFolder.AccessControls.Add(new FileManagerAccessControl
+    {
+        Path = @"\",
+        AllowedPermissions = FileManagerPermissions.Full
+    });
+
+    fileManager.RootFolders.Add(rootFolder);
+}
+<html>
+<head>
+    <title>File Manager</title>
+    @this.RenderHead(fileManager)
+</head>
+<body>
+    @this.RenderBody(fileManager)
+</body>
+</html>

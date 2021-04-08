@@ -9,6 +9,7 @@ namespace Bewerber.Models
     public class BewerberModel
     {
        [Key] public int Id { get; set; }
+   
 
         [DataType(DataType.Date)]
         public DateTime Erstellt { get; set; }
@@ -43,6 +44,7 @@ namespace Bewerber.Models
         public string RefMail { get; set; }
 
         public string Bearbeiter { get; set; }
+
 
 
 

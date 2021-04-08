@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Bewerber.Data;
+using GleamTech.AspNet.Core;
+using Bewerber.Mail;
 
 namespace Bewerber
 {
@@ -25,6 +27,7 @@ namespace Bewerber
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            services.AddGleamTech();
             services
                 .AddControllersWithViews()
                 .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
@@ -33,7 +36,10 @@ namespace Bewerber
                     options.UseSqlServer(Configuration.GetConnectionString("BewerberContext")));
             services.AddDbContext<StellenangeboteContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("BewerberContext")));
-
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+            services.AddTransient<IMailService, MailService>();
+            services.AddDbContext<BewerberContextV2>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("BewerberContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +53,9 @@ namespace Bewerber
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseGleamTech();
+
             app.UseStaticFiles();
 
             app.UseRouting();
