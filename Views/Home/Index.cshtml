@@ -1,4 +1,4 @@
-@using Bewerber.Models
+﻿@using Bewerber.Models
 @using GleamTech.AspNet.Core
 @using GleamTech.FileUltimate.AspNet.UI
 
@@ -6,9 +6,10 @@
 <script>
     DevExpress.localization.locale("de");
 </script>
+<head>
+    <meta charset="utf-8" />
 
-<h2 class="content-block">Startseite</h2>
-    test
+</head>
 <style>
 
     .dx-texteditor.dx-editor-underlined::after {
@@ -36,12 +37,18 @@
         margin-left: 3%;
     }
 
+    .table2 {
+        margin-left: 3%;
+    }
+
     .test {
-        width: 100px;
+        width: 200px;
+        font-weight: bold;
     }
 
     .test1 {
         width: 70px;
+      
     }
 
     .test2 {
@@ -56,18 +63,49 @@
     .employeeInfo {
         width: 50%;
         float: left;
+        border: 1px solid rgba(77, 43, 43, 0.42);
+    }
+
+    .anhang2 {
+        align-content: center;
+    }
+
+    .status_text {
+        font-size: 20px
+    }
+
+    .status_text_var {
+        font-size: 20px;
+    }
+
+    .BEW_STATUS {
+        font-weight: bold;
+    }
+
+    .notizen2 {
+        width: 400px;
+    }
+
+
+    .bild {
+        width: 200px;
+        height: 200px;
+        background: red;
+        border-radius: 50%
+    }
+
+    .bild_box {
+        margin-left: 3%;
+        float: right;
+        margin-top: 2px;
+    }
+
+    .middle {
+        text-align: center;
+        font-weight: bold;
     }
 </style>
 
-@(Html.DevExtreme().Button()
-                        .Text(ButtonStylingMode.Contained.ToString())
-                        .Type(ButtonType.Normal)
-                        .StylingMode(ButtonStylingMode.Contained)
-                        .Width(120)
-
-
-
-                    )
 @(
 
 
@@ -137,11 +175,11 @@ Html.DevExtreme().DataGrid<Bewerber.Models.BewerberModelV2>
                         {
 
                             groupItems.AddSimpleFor(m => m.BEW_VNAME);
-                            groupItems.AddSimpleFor(m => m.BEW_VNAME);
-                            groupItems.AddSimpleFor(m => m.BEW_VNAME);
-                            groupItems.AddSimpleFor(m => m.BEW_VNAME);
-                            groupItems.AddSimpleFor(m => m.BEW_VNAME);
-                            groupItems.AddSimpleFor(m => m.BEW_VNAME);
+                            groupItems.AddSimpleFor(m => m.BEW_NNAME);
+                            groupItems.AddSimpleFor(m => m.BEW_DATUM);
+                            groupItems.AddSimpleFor(m => m.BEW_PLZ);
+                            groupItems.AddSimpleFor(m => m.BEW_ORT);
+
                         });
 
                     items.AddGroup()
@@ -150,9 +188,9 @@ Html.DevExtreme().DataGrid<Bewerber.Models.BewerberModelV2>
                         .ColSpan(2)
                         .Items(groupItems =>
                         {
-                            groupItems.AddSimpleFor(m => m.BEW_VNAME)
+                            groupItems.AddSimpleFor(m => m.BEW_BERUF)
                             ;
-                            groupItems.AddSimpleFor(m => m.BEW_VNAME);
+                            groupItems.AddSimpleFor(m => m.BEW_BGRUPPE);
 
                         });
 
@@ -162,8 +200,8 @@ Html.DevExtreme().DataGrid<Bewerber.Models.BewerberModelV2>
                     .ColSpan(3)
                     .Items(groupItems =>
                     {
-                        groupItems.AddSimpleFor(m => m.BEW_VNAME);
-                        groupItems.AddSimpleFor(m => m.BEW_VNAME);
+                        groupItems.AddSimpleFor(m => m.BEW_NETZWERK);
+                        groupItems.AddSimpleFor(m => m.BEW_NETZWERK2);
 
                     });
 
@@ -173,8 +211,8 @@ Html.DevExtreme().DataGrid<Bewerber.Models.BewerberModelV2>
                     .ColSpan(3)
                     .Items(groupItems =>
                     {
-                        groupItems.AddSimpleFor(m => m.BEW_VNAME);
-                        groupItems.AddSimpleFor(m => m.BEW_VNAME);
+                        groupItems.AddSimpleFor(m => m.BEW_TELEFON);
+                        groupItems.AddSimpleFor(m => m.BEW_MAIL);
                         groupItems.AddSimpleFor(m => m.BEW_VNAME);
                     });
 
@@ -184,7 +222,7 @@ Html.DevExtreme().DataGrid<Bewerber.Models.BewerberModelV2>
                     .ColSpan(1)
                     .Items(groupItems =>
                     {
-                        groupItems.AddSimpleFor(m => m.BEW_VNAME)
+                        groupItems.AddSimpleFor(m => m.Notizen)
                                                     .ColSpan(2)
                             .Editor(editor => editor.TextArea().Height(100));
 
@@ -192,15 +230,15 @@ Html.DevExtreme().DataGrid<Bewerber.Models.BewerberModelV2>
 
 
                     items.AddGroup()
-                    .Caption("Vorstellungsgespr�ch")
+                    .Caption("Vorstellungsgespräch")
                     .ColCount(4)
                     .ColSpan(4)
                     .Items(groupItems =>
                     {
-                        groupItems.AddSimpleFor(m => m.BEW_VNAME);
-                        groupItems.AddSimpleFor(m => m.BEW_VNAME);
-                        groupItems.AddSimpleFor(m => m.BEW_VNAME);
-                        groupItems.AddSimpleFor(m => m.BEW_VNAME);
+                        groupItems.AddSimpleFor(m => m.VOR_OFFEN);
+                        groupItems.AddSimpleFor(m => m.VOR_ERFOL);
+                        groupItems.AddSimpleFor(m => m.VOR_ABGES);
+                        groupItems.AddSimpleFor(m => m.VOR_DATUM);
                     });
 
 
@@ -210,36 +248,13 @@ Html.DevExtreme().DataGrid<Bewerber.Models.BewerberModelV2>
                     .ColSpan(4)
                     .Items(groupItems =>
                     {
-                        groupItems.AddSimpleFor(m => m.BEW_VNAME)
-                        .DataField("Vorstellung");
-                        groupItems.AddSimpleFor(m => m.BEW_VNAME);
-                        groupItems.AddSimpleFor(m => m.BEW_VNAME);
-                        groupItems.AddSimpleFor(m => m.BEW_VNAME);
+                        groupItems.AddSimpleFor(m => m.EIN_OFFEN);
+                        groupItems.AddSimpleFor(m => m.EIN_ERFOL);
+                        groupItems.AddSimpleFor(m => m.EIN_AUSGE);
+                        groupItems.AddSimpleFor(m => m.EIN_DATUM);
                     });
 
 
-                    items.AddGroup()
-                    .ColCount(3)
-                    .ColSpan(3)
-                    .Items(groupItems =>
-                    {
-                        groupItems.AddSimpleFor(m => m.BEW_VNAME);
-                        groupItems.AddSimpleFor(m => m.BEW_VNAME);
-                        groupItems.AddSimpleFor(m => m.BEW_VNAME);
-
-                    });
-
-                    items.AddGroup()
-                    .Caption("Anlagen")
-                    .ColCount(3)
-                    .ColSpan(3)
-
-                    .Items(groupItems =>
-                    {
-                        groupItems.AddSimpleFor(m => m.BEW_VNAME);
-
-
-                    });
 
 
 
@@ -273,10 +288,10 @@ Html.DevExtreme().DataGrid<Bewerber.Models.BewerberModelV2>
     .Caption("Nachname").Alignment(HorizontalAlignment.Center);
 
     columns.AddFor(m => m.BEW_BERUF)
-    .Caption("Beruf").Alignment(HorizontalAlignment.Center);
+    .Caption("Berufsgruppe").Alignment(HorizontalAlignment.Center);
 
     columns.AddFor(m => m.BEW_BGRUPPE)
-    .Caption("Berufsgruppe")
+    .Caption("Berufsdetail")
     .Alignment(HorizontalAlignment.Center);
 
     columns.AddFor(m => m.BEW_NETZWERK)
@@ -289,17 +304,50 @@ Html.DevExtreme().DataGrid<Bewerber.Models.BewerberModelV2>
     .Caption("Vorstellung").Alignment(HorizontalAlignment.Center);
 
     columns.AddFor(m => m.VOR_ERFOL)
-    .Caption("Erfolgt").Alignment(HorizontalAlignment.Center);
+    .Caption("erfolgt").Alignment(HorizontalAlignment.Center);
 
     columns.AddFor(m => m.EIN_DATUM).DataType(GridColumnDataType.Date)
     .Caption("Eingestellt").Alignment(HorizontalAlignment.Center);
 
-    columns.AddFor(m => m.BEW_REFMAIL)
+    columns.AddFor(m => m.EIN_ERFOL)
     .Alignment(HorizontalAlignment.Center)
-    .Visible(false);
+    .Caption("erfolgt");
 
     columns.AddFor(m => m.BEW_BEARBEITER)
-    .Caption("Bearbeiter").Alignment(HorizontalAlignment.Center);
+    .Caption("").Alignment(HorizontalAlignment.Center)
+    .Width("40");
+
+    columns.AddFor(m => m.BEW_PLZ)
+    .Caption("PLZ")
+    .Visible(false);
+
+    columns.AddFor(m => m.BEW_ORT)
+    .Caption("Wohnort")
+    .Visible(false);
+
+    columns.AddFor(m => m.BEW_NETZWERK2)
+    .Caption("Netzwerkdetail")
+    .Visible(false);
+
+    columns.AddFor(m => m.BEW_TELEFON)
+    .Caption("Telefonnummer")
+    .Visible(false);
+
+    columns.AddFor(m => m.VOR_OFFEN)
+    .Caption("offen")
+    .Visible(false);
+
+    columns.AddFor(m => m.VOR_ABGES)
+    .Caption("abgesagt")
+    .Visible(false);
+
+    columns.AddFor(m => m.Notizen)
+    .Caption("Notizen")
+    .Visible(false);
+
+    columns.AddFor(m => m.BEW_MAIL)
+    .Caption("eMail")
+    .Visible(false);
 })
 .OnSelectionChanged("selection_changed")
 
@@ -311,44 +359,81 @@ Html.DevExtreme().DataGrid<Bewerber.Models.BewerberModelV2>
 
 <div class="employeeInfo">
 
-    <table class="table1" ;">
+    <table class="bild_box">
+        <tr>
+            <td class="status_text"></td>
+            <td class="middle"> <img class="bild" src="~/image/1.jpg" alt=""> </td>
+            <td class="test2"></td>
+        </tr>
+        <tr>
+            <td class="status_text"></td>
+            <td class="middle"><p class="BEW_TELEFON"></p></td>
+            <td class="test2"></td>
+
+        </tr>
+    </table>
+    <table class="table1">
         <tr>
             <td class="test1">Vorname:</td>
             <td class="test"><p class="BEW_VNAME"></p></td>
             <td class="test2">&nbsp;</td>
             <td class="test1">Berufsgruppe:</td>
-            <td class="test"><p class="Berufsgruppe"></p></td>
+            <td class="test"><p class="BEW_BERUF"></p></td>
+
         </tr>
         <tr>
             <td class="test1">Nachname:</td>
             <td class="test"><p class="BEW_NNAME"></p></td>
             <td class="test2">&nbsp;</td>
             <td class="test1">Berufdetail:</td>
-            <td class="test"><p class="Berufdetail"></p></td>
+            <td class="test"><p class="BEW_BGRUPPE"></p></td>
+
         </tr>
         <tr>
             <td class="test1">Niederlassung:</td>
-            <td class="test"><p class="NL"></p></td>
+            <td class="test"><p class="BEW_NL"></p></td>
             <td class="test2">&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="test1">Anhang:</td>
-            <td class="test"><p class="NL"></p></td>
+            <td class="test1">eMail:</td>
+            <td class="test"><p class="BEW_MAIL"></p></td>
             <td class="test2">&nbsp;</td>
         </tr>
 
     </table>
 
+    <table class="table2">
+        <tr>
+            <td class="status_text">Status:</td>
+            <td class="status_text_var"><p class="BEW_STATUS" </p></td>
+            <td class="test2">&nbsp;</td>
+
+        </tr>
+    </table>
+
+    <table class="table2">
+        <tr>
+            <td class="test1">Notizen:</td>
+            <td class="test">&nbsp;</td>
+            <td class="test2">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="notizen2"><p class="Notizen"></p></td>
+            <td class="test">&nbsp;</td>
+            <td class="test2">&nbsp;</td>
+        </tr>
+    </table>
+</div>
+
+<div class="employeeInfo2">
     <table>
         <tr>
-            <th>File Name</th>
+            <th>Dokumente</th>
 
         </tr>
         @foreach (FileModel file in Model)
         {
             <tr>
                 <td>@file.FileName</td>
-                <td><a href="/Home/DownloadFile?filename=@file.FileName">Download</a></td>
+                <td><a href="/Home/DownloadFile?filename=@file.FileName">Öffnen</a></td>
             </tr>
         }
 
@@ -360,18 +445,26 @@ Html.DevExtreme().DataGrid<Bewerber.Models.BewerberModelV2>
 
 
 
+
+
 <script>
     function selection_changed(selectedItems) {
         var data = selectedItems.selectedRowsData[0];
         if (data) {
             $(".BEW_VNAME").text(data.BEW_VNAME);
-            $(".Berufsgruppe").text(data.Berufsgruppe);
-            $(".Berufdetail").text(data.Berufdetail);
-            $(".Netzwerke").text(data.Netzwerke);
-            $(".Netzwerkdetail").text(data.Netzwerkdetail);
+            $(".BEW_BERUF").text(data.BEW_BERUF);
+            $(".BEW_BGRUPPE").text(data.BEW_BGRUPPE);
             $(".BEW_NNAME").text(data.BEW_NNAME);
-            $(".NL").text(data.NL);
+            $(".BEW_NL").text(data.BEW_NL);
+            $(".BEW_TELEFON").text(data.BEW_TELEFON);
             $(".Id").text(data.Id);
+            $(".BEW_STATUS").text(data.BEW_STATUS);
+            $(".Notizen").text(data.Notizen);
+            $(".BEW_MAIL").text(data.BEW_MAIL);
+
+
+
+
 
 
         }

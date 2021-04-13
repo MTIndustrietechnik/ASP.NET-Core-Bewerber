@@ -65,7 +65,9 @@ namespace Bewerber.Controllers
                 i.MAILANH_ID,
                 i.BEW_MAIL,
                 i.AUSW_ID,
-                i.BEW_NLNR
+                i.BEW_NLNR,
+                i.Notizen,
+                i.BEW_TELEFON
             });
 
             // If you work with a large amount of data, consider specifying the PaginateViaPrimaryKey and PrimaryKey properties.
@@ -158,6 +160,8 @@ namespace Bewerber.Controllers
 
             string AUSW_ID = nameof(BewerberModelV2.AUSW_ID);
             string BEW_NLNR = nameof(BewerberModelV2.BEW_NLNR);
+            string Notizen = nameof(BewerberModelV2.Notizen);
+            string BEW_TELEFON = nameof(BewerberModelV2.BEW_TELEFON);
 
             if(values.Contains(BEW_ID)) {
                 model.BEW_ID = Convert.ToInt32(values[BEW_ID]);
@@ -315,6 +319,16 @@ namespace Bewerber.Controllers
 
             if(values.Contains(BEW_NLNR)) {
                 model.BEW_NLNR = Convert.ToInt32(values[BEW_NLNR]);
+            }
+
+            if (values.Contains(Notizen))
+            {
+                model.Notizen = Convert.ToString(values[Notizen]);
+            }
+
+            if (values.Contains(BEW_TELEFON))
+            {
+                model.BEW_TELEFON = Convert.ToString(values[BEW_TELEFON]);
             }
         }
 

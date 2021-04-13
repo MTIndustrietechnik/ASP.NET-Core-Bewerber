@@ -23,8 +23,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="image\" />
+      <Folder Include="wwwroot\image\" />
       <Folder Include="wwwroot\Files\6\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="wwwroot\image\1.jpg" />
     </ItemGroup>
 
     <ProjectExtensions><VisualStudio><UserProperties TemplateFeatures="NETCORE" /></VisualStudio></ProjectExtensions>

@@ -57,6 +57,8 @@ namespace Bewerber.Models
 
         public int? AUSW_ID{ get; set; }
         public int? BEW_NLNR { get; set; }
+        public string Notizen { get; set; }
+        public string BEW_TELEFON { get; set; }
 
 
 
