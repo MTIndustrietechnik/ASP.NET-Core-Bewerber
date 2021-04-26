@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Bewerber.Data;
 using Bewerber.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ namespace Bewerber.Controllers
         public IActionResult Index()
         {
             string[] filepaths = Directory.GetFiles(Path.Combine(this.Environment.WebRootPath, "Files/"));
-           
+
             List<FileModel> list = new List<FileModel>();
             foreach (string filepath in filepaths)
             {
@@ -39,6 +40,13 @@ namespace Bewerber.Controllers
         public IActionResult About() {
             return View();
         }
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error() {
@@ -59,5 +67,8 @@ namespace Bewerber.Controllers
         {
             await Task.CompletedTask;
         }
+
+
+
     }
 }

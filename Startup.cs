@@ -11,6 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Bewerber.Data;
 using GleamTech.AspNet.Core;
 using Bewerber.Mail;
+using Bewerber.Models;
+using Microsoft.AspNetCore.Identity;
+using Bewerber.Areas.Identity.Pages.Account;
 
 namespace Bewerber
 {
@@ -28,14 +31,17 @@ namespace Bewerber
         {
             // Add framework services.
             services.AddGleamTech();
+            services.AddRazorPages();
+
             services
                 .AddControllersWithViews()
                 .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
             services.AddDbContext<BewerberContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("BewerberContext")));
+
             services.AddDbContext<StellenangeboteContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("BewerberContext")));
+                    options.UseSqlServer(Configuration.GetConnectionString("BewerberContext")));
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
             services.AddTransient<IMailService, MailService>();
             services.AddDbContext<BewerberContextV2>(options =>
@@ -60,12 +66,16 @@ namespace Bewerber
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
