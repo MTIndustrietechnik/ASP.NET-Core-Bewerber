@@ -9,11 +9,13 @@ namespace Bewerber.Data
 {
     public class StellenangeboteContext : DbContext
     {
-        public StellenangeboteContext (DbContextOptions<StellenangeboteContext> options)
+        public StellenangeboteContext(DbContextOptions<StellenangeboteContext> options)
             : base(options)
         {
         }
 
         public DbSet<Bewerber.Models.Stellenangebote> Stellenanzeigen { get; set; }
     }
+
+
 }
