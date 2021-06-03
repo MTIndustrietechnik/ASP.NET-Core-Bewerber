@@ -7,14 +7,14 @@ using Bewerber.Models;
 
 namespace Bewerber.Data
 {
-    public class StellenangeboteContext : DbContext
+    public class StellenanzeigeContext : DbContext
     {
-        public StellenangeboteContext(DbContextOptions<StellenangeboteContext> options)
+        public StellenanzeigeContext(DbContextOptions<StellenanzeigeContext> options)
             : base(options)
         {
         }
 
-        public DbSet<Bewerber.Models.Stellenangebote> Stellenanzeigen { get; set; }
+        public DbSet<Bewerber.Models.Stellenanzeigen> Stellenanzeigen { get; set; }
 
       
     }

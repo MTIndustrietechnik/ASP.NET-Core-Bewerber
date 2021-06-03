@@ -42,6 +42,8 @@ namespace Bewerber
 
             services.AddDbContext<StellenangeboteContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("BewerberContext")));
+            services.AddDbContext<StellenanzeigeContext>(options =>
+                   options.UseSqlServer(Configuration.GetConnectionString("BewerberContext")));
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
             services.AddTransient<IMailService, MailService>();
             services.AddDbContext<BewerberContextV2>(options =>

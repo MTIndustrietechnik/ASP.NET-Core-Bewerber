@@ -26,25 +26,14 @@ namespace Bewerber.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Get(DataSourceLoadOptions loadOptions) {
-            var stellenanzeigen = _context.Stellenanzeigen.Select(i => new {
-                i.Id,
-                i.NL,
-                i.BEZ,
-                i.Detail,
-                i.VDatum,
-                i.BDatum,
-                i.Preis,
-                i.Referenz,
-                i.Gesamt,
-                i.Eingestellt,
-                i.Unbearbeitet
-            });
+            _context.Database.ExecuteSqlRaw("[dbo].[GETSTELLEN]");
+            var stellenanzeigen = _context.Stellenanzeigen
+                .FromSqlRaw<Stellenangebote>("SELECT * FROM STELLENANZEIGEN");
+                
+               
+            
+            
 
-            // If you work with a large amount of data, consider specifying the PaginateViaPrimaryKey and PrimaryKey properties.
-            // In this case, keys and data are loaded in separate queries. This can make the SQL execution plan more efficient.
-            // Refer to the topic https://github.com/DevExpress/DevExtreme.AspNet.Data/issues/336.
-            // loadOptions.PrimaryKey = new[] { "Id" };
-            // loadOptions.PaginateViaPrimaryKey = true;
 
             return Json(await DataSourceLoader.LoadAsync(stellenanzeigen, loadOptions));
         }
@@ -117,10 +106,7 @@ namespace Bewerber.Controllers
             if(values.Contains(DETAIL)) {
                 model.Detail = Convert.ToString(values[DETAIL]);
             }
-
-            if(values.Contains(VDATUM)) {
-                model.VDatum = Convert.ToDateTime(values[VDATUM]);
-            }
+       
 
             if(values.Contains(BDATUM)) {
                 model.BDatum = Convert.ToDateTime(values[BDATUM]);

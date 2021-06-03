@@ -1,6 +1,46 @@
 <h2 class="content-block">Stellenportale</h2>
+<script>
+    DevExpress.localization.locale("de");
+</script>
+<head>
+    <meta charset="utf-8" />
 
-)
+</head>
+<style>
+
+
+    #chart {
+        height: 440px;
+    }
+
+    .tooltip-header {
+        margin-bottom: 5px;
+        font-size: 16px;
+        font-weight: 500;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #c5c5c5;
+    }
+
+    .tooltip-body {
+        width: 170px;
+    }
+
+        .tooltip-body .series-name {
+            font-weight: normal;
+            opacity: 0.6;
+            display: inline-block;
+            line-height: 1.5;
+            padding-right: 10px;
+            width: 126px;
+        }
+
+        .tooltip-body .value-text {
+            display: inline-block;
+            line-height: 1.5;
+            width: 30px;
+        }
+</style>
+
 @(Html.DevExtreme().DataGrid<Bewerber.Models.Stellenangebote>()
 
     .DataSource(ds => ds.Mvc()
@@ -14,6 +54,7 @@
     .AllowColumnResizing(true)
     .ColumnAutoWidth(true)
     .ShowBorders(true)
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
     .FilterPanel(f => f.Visible(true))
     .FilterRow(filterRow => filterRow
         .Visible(true)
@@ -39,9 +80,13 @@
 
         columns.AddFor(m => m.Detail);
 
-        columns.AddFor(m => m.VDatum);
+        columns.AddFor(m => m.VDatum)
+        .Caption("Von Datum");
 
-        columns.AddFor(m => m.BDatum);
+
+
+        columns.AddFor(m => m.BDatum)
+        .Caption("Bis Datum");
 
         columns.AddFor(m => m.Preis);
 
@@ -76,5 +121,74 @@
             editing.AllowDeleting(true);
             editing.AllowAdding(true);
         })
-        
+
 )
+@(Html.DevExtreme().Chart()
+    .ID("chart")
+    .BarGroupWidth(100)
+    .Title("Vergleich Ausgaben pro Bewerber")
+        .Tooltip(t => t
+        .Enabled(true)
+        .Shared(true))
+
+
+    .ValueAxis(a =>
+    {
+        a.Add()
+            .Name("BewerberGesamt")
+            .Position(Position.Left)
+            .TickInterval(5);
+
+    })
+
+    .Series(s =>
+    {
+        s.Add()
+            .ValueField("Gesamt")
+            .ArgumentField("VDatum")
+            .Type(SeriesType.Bar)
+            .Color("#ffaa66")
+            .Name("BewerberGesamt");
+
+        s.Add()
+            .ValueField("Preis")
+            .ArgumentField("VDatum")
+            .Type(SeriesType.Spline)
+            .Color("black")
+            .Name("Ausgaben");
+
+
+
+
+    })
+     .ArgumentAxis(a => a
+     .Label(l => l.Format(Format.Month))
+    )
+
+    .DataSource(ds => ds.Mvc()
+        .Controller("Stellenangebotes")
+        .LoadAction("Get")
+
+    )
+    )
+@(Html.DevExtreme().PieChart()
+    .ID("pie")
+    .Palette(VizPalette.SoftPastel)
+    .Type(PieChartType.Doughnut)
+    .Title("Aufteilung Bewerber")
+
+    .Series(s => s
+        .Add()
+        .ArgumentField("VDatum")
+        .ValueField("Gesamt")
+        .Label(l => l
+            .Visible(true)
+
+        )
+    )
+
+    .DataSource(ds => ds.Mvc()
+        .Controller("Stellenangebotes")
+        .LoadAction("Get")
+    )
+    )
